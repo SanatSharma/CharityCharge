@@ -1,3 +1,5 @@
+backend/__pycache__/*
+backend/keys.py
 *.iml
 .gradle
 /local.properties
