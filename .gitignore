@@ -1,2 +1,11 @@
 backend/__pycache__/*
 backend/keys.py
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+.externalNativeBuild
