@@ -1,0 +1,20 @@
+1) Charity Data
+    charities = {Id: {name: Name, image: Image, website: Website, description: Description}}
+
+    Upon loading of screen, display each charity with a button having the name of the charity
+    Upon clicking the button, go to the charity intent
+
+    Display Image   
+        Name in bold
+        description
+        email, Phone
+        Donate Button
+
+    Click Donate Button
+
+
+    Main
+    Scrollable List - iteratate through charities and create a list icon button with linkage based on Id
+    If button clicked
+        open CharityDisplay intent with a particular Id
+        use get Charity and display UI

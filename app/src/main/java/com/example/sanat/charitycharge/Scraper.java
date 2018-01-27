@@ -1,4 +1,4 @@
-package sxsw2017;
+package com.example.sanat.charitycharge;
 
 import java.util.*;
 
@@ -85,26 +85,14 @@ public class Scraper {
         }*/
 	}
 
-	static void fetchTwitter(String hashtag, String city, String state) throws JSONException{
+	static void fetchTwitter() throws JSONException{
 
-		if(hashtag == null)
-			throw new IllegalArgumentException("0");
 
 		try {
-			//create a query to search twitter with the specific hashtag
-			Query query = new Query(hashtag);
-			QueryResult result;
-			boolean check = false;
-
-			//get results from twitter
-			result = twitter.search(query);
 
 			//store the returned tweets in a list
 			List<Status> tweets = result.getTweets();
 
-			//TODO send in the state and state to mapquest api
-			//TODO set latitude and longitude to the return from the getLat and getLong methods
-			addedToList = false;
 			for(Status tweet: tweets){
 				
 				check = false;
@@ -116,46 +104,17 @@ public class Scraper {
 						break;
 					}
 				String[] text = tweet.getText().split(" ");
-				if(!(text[0].equals(hashtag)))
-					check = false;
 
-				if(check){
-					//System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
-					//splitting the text into tokens based on spaces
+				//System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
+				//splitting the text into tokens based on spaces
 
-					MapQuestApi map = new MapQuestApi(city, state);
+				artist = text[0].substring(1, text[0].length());
 
-					latitude = map.getLat();
-					longitude = map.getLon();
-					artist = text[0].substring(1, text[0].length());
+				System.out.println(tweet.getUser().getScreenName());
+				System.out.println(tweet.getText());
 
-					System.out.println(tweet.getUser().getScreenName());
-					System.out.println(tweet.getText());
-					System.out.println(tweet.getUser().getLocation());
+				String[] tokens = tweet.getText().split(" ");
 
-					System.out.println(latitude);
-					System.out.println(longitude + "\n");
-
-					String[] tokens = tweet.getText().split(" ");
-					String song = "";
-					for(String s: tokens){
-						if(s.length() > 0) {
-							if(s.charAt(0)!='#')
-								song += s + " ";
-						}
-					}
-					song = song.substring(0, song.length()-1);
-					if(!setList.contains(song))
-					{
-						addedToList = true;
-						setList.add(song);
-					}
-					
-					if(!setList.isEmpty()){
-						if(addedToList){
-							sendMessageToServer();
-						}
-					}
 				}
 			}
 		}
@@ -165,6 +124,5 @@ public class Scraper {
 			System.exit(-1);
 		}
 
-		System.out.println(setList.toString());
 	}
 }
