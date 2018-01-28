@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -50,6 +51,13 @@ public class CharityDetail extends AppCompatActivity {
         charityName.setText(charity.name);
         charityWebsite.setText(charity.website);
         charityDescription.setText(charity.description);
+
+        Button button = (Button) findViewById(R.id.donate_button);
+        button.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
