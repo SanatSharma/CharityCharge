@@ -27,6 +27,12 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".CharityList"
             />
+        <activity
+            android:name=".Donation"
+            android:label="Donation"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".CharityDetail"
+            />
     </application>
 
 </manifest>
