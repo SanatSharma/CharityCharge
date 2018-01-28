@@ -2,14 +2,27 @@ from flask import Flask, jsonify, request
 from multiprocessing import Process, Value, Array, Manager
 from ctypes import c_char_p
 import requests, json, time
-
 import keys, nessie, nlp, tweets
+import logging
+from websocket_server import WebsocketServer
+
 
 app = Flask(__name__)
 
 manager = Manager()
 
 display_name = "Shin_Cow"
+
+def new_client(client, server):
+    server.send_message_to_all("Hey all, a new client has joined us")
+
+def message(client, server, message):
+    print("Message received: " + message)
+
+server = WebsocketServer(3000)
+server.set_fn_new_client(new_client)
+server.set_fn_message_received(message)
+server.run_forever()
 
 @app.route("/")
 def hello():
