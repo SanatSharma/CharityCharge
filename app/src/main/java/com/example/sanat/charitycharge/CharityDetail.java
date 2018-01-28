@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import org.w3c.dom.Text;
 
 public class CharityDetail extends AppCompatActivity {
@@ -33,7 +35,9 @@ public class CharityDetail extends AppCompatActivity {
         charityDescription = (TextView) findViewById(R.id.description);
         charityImage = (ImageView) findViewById(R.id.charity_image);
 
-        new ImageBackground(charityImage).execute(charity.image);
+        Glide.with(this).load(charity.image).into(charityImage);
+
+        //new ImageBackground(charityImage).execute(charity.image);
 
         charityName.setText(charity.name);
         charityWebsite.setText(charity.website);

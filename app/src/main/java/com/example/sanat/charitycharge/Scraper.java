@@ -5,6 +5,13 @@ import android.util.Log;
 
 import java.util.*;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import twitter4j.Query;
 import twitter4j.QueryResult;
 import twitter4j.Status;
@@ -20,26 +27,11 @@ import twitter4j.conf.ConfigurationBuilder;
 import java.util.logging.*;
 import java.io.FileReader;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
-
-
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.JsonObject   ;
 
 import java.io.*;
 
-
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpResponseException;
 
 public class Scraper {
 	// final static AccessToken accessToken = new AccessToken("3151868940-VNKeYFFoLoOgq9TtHgomR2jDMiRAjze1DTOgMgJ"
@@ -79,43 +71,35 @@ public class Scraper {
 	}
 
 	private static void sendMessageToServer(String message) {
-		try {
-			System.out.println(message);
+        MediaType binary = MediaType.parse("application/json; charset=utf-8");
+        OkHttpClient httpclient = new OkHttpClient();
+        String json = "{\"phrase\":\""+message+"\"}";
+        RequestBody body = RequestBody.create(binary, json);
 
-            CloseableHttpClient httpClient = HttpClients.createDefault();
-
-            HttpPost httppost = new HttpPost("http://127.0.0.1:5000/get_keywords");
-
-            // Request parameters and other properties.
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("phrase", message));
-            httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-
-            //Execute and get the response.
-            CloseableHttpResponse response = httpClient.execute(httppost);
-            HttpEntity entity = response.getEntity();
-
-            if (entity != null) {
-                InputStream instream = entity.getContent();
-                try {
-                    // do something useful
-                    System.out.println(instream);
-                } finally {
-                    instream.close();
-                }
+        Request request = new Request.Builder()
+                .url("http://127.0.0.1:5000/get_keywords")
+                .post(body)
+                .build();
+        Response response = null;
+        httpclient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.v("FAIL", e.toString());
             }
-		}
-		catch(HttpResponseException hre) {
-			hre.printStackTrace();
-			System.out.println("Failed to communicate with server: " + hre.getStatusCode());
-		}
-		catch(ClientProtocolException cpe) {
-			cpe.printStackTrace();
-			System.out.println("CPE: Failed to communicate with server");
-		}
-		catch(IOException io) {
-			io.printStackTrace();
-			System.out.println("IO: Failed to communicate with server");
-		}
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String jsonStr = response.body().string();
+                System.out.println("API resp" +  jsonStr);
+
+                //result = parseJson(jsonStr);
+
+                //if(result.size()!= 0) {
+                //    Log.v("JSON STR", result.toString());
+                //}
+                //else
+                 //   Log.v("JSON STR", "Empty result");
+            }
+        });
 	}
 }
