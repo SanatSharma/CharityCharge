@@ -16,7 +16,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        WebSocketListener.start();
+        WebSocketListener s = new WebSocketListener(MainActivity.this);
+        s.start();
 
         final Intent i = new Intent(this, CharityList.class);
 
