@@ -38,7 +38,7 @@ public class CharityDetail extends AppCompatActivity {
         charityName.setText(charity.name);
         charityWebsite.setText(charity.website);
         charityDescription.setText(charity.description);
-        
+
 
 
     }

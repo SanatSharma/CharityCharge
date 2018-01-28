@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -33,14 +34,24 @@ public class CharityList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        /*LayoutInflater inflater = this.getLayoutInflater();
+
+        View myView = inflater.inflate(R.layout.activity_charity_list, null);*/
+
+        setContentView(R.layout.activity_charity_list);
+
         listView = (ListView) findViewById(R.id.list);
 
         ArrayList<String> items = Globals.getInstance().getNames();
+        
+        //ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
 
-        itemAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+        CharityLayout itemsAdapter = new CharityLayout(this, items, items);
 
-        Log.v("ArrayAdapter", itemAdapter.getItem(1));
-        listView.setAdapter(itemAdapter);
+        Log.v("Test", itemsAdapter.getItem(0));
+
+        listView.setAdapter(itemsAdapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
