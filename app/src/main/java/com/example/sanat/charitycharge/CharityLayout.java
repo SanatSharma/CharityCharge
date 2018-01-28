@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 /**
@@ -41,7 +43,7 @@ public class CharityLayout extends ArrayAdapter<String> {
         Glide
                 .with(context)
                 .load(icons.get(position))
-                .into((ImageView) convertView);
+                .into((ImageView) icon);
         return rowView;
     }
 

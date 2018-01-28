@@ -4,8 +4,6 @@
     android:layout_height="wrap_content"
     android:padding="6dip" >
 
-
-
     <ImageView
         android:id="@+id/icon"
         android:layout_width="fill_parent"

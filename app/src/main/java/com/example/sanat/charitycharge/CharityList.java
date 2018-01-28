@@ -75,12 +75,7 @@ public class CharityList extends AppCompatActivity {
                 i.putExtras(b);
 
                 startActivity(i);
-
-                // Show Alert
-                Toast.makeText(getApplicationContext(),
-                        "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
-                        .show();
-
+                
             }
 
         });
