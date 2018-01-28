@@ -91,6 +91,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="donationTitle">Make a Donation</string>
     <string name="title_activity_charity_detail">CharityDetail</string>
     <string name="title_activity_result">ResultActivity</string>
 </resources>

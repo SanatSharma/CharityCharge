@@ -1,5 +1,6 @@
 package com.example.sanat.charitycharge;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -30,7 +31,7 @@ public class CharityDetail extends AppCompatActivity {
         setContentView(R.layout.activity_charity_detail);
 
         Bundle b = getIntent().getExtras();
-        int id = b.getInt("id");
+        final int id = b.getInt("id");
 
         Globals.Charity charity = Globals.getInstance().getCharity(id);
 
@@ -55,7 +56,16 @@ public class CharityDetail extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.donate_button);
         button.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
+                //find id
+                final int new_id = id;
 
+                Intent i = new Intent(getApplicationContext(), Donation.class);
+
+                Bundle b = new Bundle();
+                b.putInt("id", new_id);
+                i.putExtras(b);
+
+                startActivity(i);
             }
         });
     }

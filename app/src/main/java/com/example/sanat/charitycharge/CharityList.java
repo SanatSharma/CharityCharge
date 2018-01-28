@@ -9,11 +9,14 @@ import android.media.Image;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.content.Loader;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -35,6 +38,14 @@ public class CharityList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_charity_list);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setTitle("Featured Charities");
+
         ArrayList<String> items = Globals.getInstance().getNames();
 
         ArrayList<String> icons = new ArrayList<String>();
@@ -42,8 +53,6 @@ public class CharityList extends AppCompatActivity {
         for (int index = 0; index < items.size(); index++) {
             icons.add(Globals.getInstance().getCharityIcon(items.get(index)));
         }
-
-        setContentView(R.layout.activity_charity_list);
 
         listView = (ListView) findViewById(R.id.list);
 
@@ -79,6 +88,13 @@ public class CharityList extends AppCompatActivity {
             }
 
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_charaty_main, menu);
+        return true;
     }
 
 }

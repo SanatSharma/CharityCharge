@@ -26,11 +26,13 @@
             android:name=".CharityDetail"
             android:label="@string/title_activity_charity_detail"
             android:parentActivityName=".CharityList"
-            android:theme="@style/AppTheme.NoActionBar" />
+            />
         <activity
-            android:name=".ResultActivity"
-            android:label="@string/title_activity_result"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".Donation"
+            android:label="Donation"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".CharityDetail"
+            />
     </application>
 
 </manifest>
