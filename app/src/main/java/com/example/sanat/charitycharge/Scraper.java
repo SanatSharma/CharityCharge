@@ -1,4 +1,4 @@
-package com.example.sanat.charitycharge;
+package com.mycompany.app;
 
 import java.util.*;
 
@@ -6,6 +6,8 @@ import twitter4j.Query;
 import twitter4j.QueryResult;
 import twitter4j.Status;
 import twitter4j.Twitter;
+import twitter4j.Paging;
+import twitter4j.auth.AccessToken;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.Configuration;
@@ -18,93 +20,80 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import java.net.*;
+import java.io.*;
+
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObjectBuilder;
+import javax.json.JsonValue;
+
+import java.net.HttpURLConnection;
+
+import org.apache.http.client.fluent.*;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpResponseException;
+import org.apache.http.entity.ContentType;
 
 public class Scraper {
-	/*	final static AccessToken accessToken = new AccessToken("789951371428495360-7aljagVXHXXVySZ94BQNHzG0ZVr2JDI"
-			, "dxq40x9zV4gqUHxZflfqT975pEFpUxardfyRinuxi96S7");*/
-	//final static Twitter twitter = new TwitterFactory().getInstance(accessToken);
-	//final static Twitter twitter = new TwitterFactory().getInstance(accessToken);
-	private static String city = "";
-	private static String state = "";
-	private static String hashtag = "";
-	private static String artist = "";
-	private static double latitude = 0;
-	private static double longitude = 0;
+	// final static AccessToken accessToken = new AccessToken("3151868940-VNKeYFFoLoOgq9TtHgomR2jDMiRAjze1DTOgMgJ"
+	// 	, "WvLJfsd124aJVW3PQGPO4G3siEyRwyV8sKKNyRaeGKsa2");
+	// final static Twitter twitter = new TwitterFactory().getInstance(accessToken);
 	static ConfigurationBuilder builder = new ConfigurationBuilder();
 	static ArrayList<String> setList = new ArrayList<String>();
 	static Twitter twitter;
 	static boolean addedToList = false;
 	Scraper(){
 		builder =  new ConfigurationBuilder();
-		//city = null;
-		//state = null;
-		latitude = 0;
-		longitude = 0;
-		//hashtag = null;
-		setList = new ArrayList<String>();
 	}
-	public void setup(){
+	public static void main(String[] args)throws IOException{
 
-		builder.setOAuthConsumerKey("BNvErshlqPIYQUDOPFmvQofPH");
-		builder.setOAuthConsumerSecret("3oBEm1MerGR0kJPDOYqhLnoaQlpYFX4pTbjybRo4uIJEjQ0ahJ");
-		builder.setOAuthAccessToken("789951371428495360-7aljagVXHXXVySZ94BQNHzG0ZVr2JDI");
-		builder.setOAuthAccessTokenSecret("dxq40x9zV4gqUHxZflfqT975pEFpUxardfyRinuxi96S7");
+		builder.setOAuthConsumerKey("HaBjJXYJ9pL2dUKB7Ep3pHlya");
+		builder.setOAuthConsumerSecret("HVP9kDG3LjMLs4nqp1tE7BL1RUJk8n2Tf1NeXYu4rQnmUqPH5k");
+		builder.setOAuthAccessToken("3151868940-VNKeYFFoLoOgq9TtHgomR2jDMiRAjze1DTOgMgJ");
+		builder.setOAuthAccessTokenSecret("WvLJfsd124aJVW3PQGPO4G3siEyRwyV8sKKNyRaeGKsa2");
 		Configuration configuration = builder.build();
 		TwitterFactory factory = new TwitterFactory(configuration);
 		twitter = factory.getInstance();
-
-
-		//	URL url = new URL("http://www.oracle.com/");
-
-		//createJsonString();
-
-		System.out.println(setList.toString());
-
-		//		System.out.println("HEREEEE");
-
-		//		System.out.println(hashtag);
-
-
-
-		/*		
-        }*/
-	}
-
-	static void fetchTwitter() throws JSONException{
-
-
-/*		try {
-
-			//store the returned tweets in a list
-			List<Status> tweets = result.getTweets();
-
-			for (Status tweet : tweets) {
-
-
-				String[] location = tweet.getUser().getLocation().split(", ");
-				for (String s : location)
-					if (s.equalsIgnoreCase(city) || s.equalsIgnoreCase(state)) {
-						break;
-					}
-				String[] text = tweet.getText().split(" ");
-
-				//System.out.println("@" + tweet.getUser().getScreenName() + " - " + tweet.getText());
-				//splitting the text into tokens based on spaces
-
-				artist = text[0].substring(1, text[0].length());
-
-				System.out.println(tweet.getUser().getScreenName());
-				System.out.println(tweet.getText());
-
-				String[] tokens = tweet.getText().split(" ");
-
-			}
+		
+		try {
+			//create a query to search twitter with the specific hashtag
+			Paging paging = new Paging(1, 100);
+			List<Status> tweets = twitter.getUserTimeline("yonajune",paging);
+			
+			String tweetText = tweets.get(0).getText();
+			System.out.println(tweetText);
+			sendMessageToServer(tweetText);
 		}
 		catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to search tweets: " + te.getMessage());
 			System.exit(-1);
-		}*/
+		}
+	}
 
+	private static void sendMessageToServer(String message) {
+		try {
+			String response = Request.Post("http://127.0.0.1:5000/get_keywords")
+			.bodyString("{\"phrase\":\""+message+"\"}", ContentType.APPLICATION_JSON)
+			.execute().returnContent().asString();
+			System.out.println(response);
+		}
+		catch(HttpResponseException hre) {
+			hre.printStackTrace();
+			System.out.println("Failed to communicate with server: " + hre.getStatusCode());
+		}
+		catch(ClientProtocolException cpe) {
+			cpe.printStackTrace();
+			System.out.println("CPE: Failed to communicate with server");
+		}
+		catch(IOException io) {
+			io.printStackTrace();
+			System.out.println("IO: Failed to communicate with server");
+		}
 	}
 }
