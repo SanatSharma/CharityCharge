@@ -1,5 +1,12 @@
 package com.example.sanat.charitycharge;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -15,24 +22,25 @@ public class WebSocketListener extends okhttp3.WebSocketListener{
     private static WebSocketListener instance;
     static OkHttpClient client;
     String message;
+    static Context context;
+    static WebSocketListener listener_1;
 
-    private WebSocketListener(){
+
+    public WebSocketListener(Context ctx){
         client = new OkHttpClient();
+        listener_1 = this;
+        context = ctx;
         System.out.println("Reaching constructor");
+        System.out.println(context.toString());
+
     }
 
     public static void start(){
-        Request request = new Request.Builder().url("ws://552e68b6.ngrok.io").build();
-        WebSocketListener listener = WebSocketListener.getInstance();
+        Request request = new Request.Builder().url("http://6c734971.ngrok.io").build();
+        WebSocketListener listener = listener_1;
         WebSocket ws = client.newWebSocket(request, listener);
     }
 
-    public static synchronized WebSocketListener getInstance(){
-        if(instance==null){
-            instance=new WebSocketListener();
-        }
-        return instance;
-    }
 
     @Override
     public void onOpen(WebSocket webSocket, Response response) {
@@ -44,6 +52,7 @@ public class WebSocketListener extends okhttp3.WebSocketListener{
     public void onMessage(WebSocket webSocket, String text) {
         System.out.println("Receiving : " + text);
         message = text;
+        sendNotification(text);
     }
 
     @Override
@@ -54,6 +63,44 @@ public class WebSocketListener extends okhttp3.WebSocketListener{
 
     @Override
     public void onFailure(WebSocket webSocket, Throwable t, Response response) {
+        sendNotification("Hurricane");
         System.out.println("Error : " + t.getMessage());
+    }
+
+    public void sendNotification(String text){
+        // The id of the channel.
+        Integer mNotificationId = 23;
+        String CHANNEL_ID = "my_channel_01";
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(context, CHANNEL_ID)
+                        .setContentTitle("Charity Charge")
+                        .setSmallIcon(R.drawable.notification)
+                        .setContentText(text + " has occurred! The following charities might be useful to donate to");
+        // Creates an explicit intent for an Activity in your app
+        System.out.println("CONTEXTT: " + context);
+        Intent resultIntent = new Intent(context, ResultActivity.class);
+
+        // The stack builder object will contain an artificial back stack for the
+        // started Activity.
+        // This ensures that navigating backward from the Activity leads out of
+        // your app to the Home screen.
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        // Adds the back stack for the Intent (but not the Intent itself)
+        stackBuilder.addParentStack(ResultActivity.class);
+        // Adds the Intent that starts the Activity to the top of the stack
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+// mNotificationId is a unique integer your app uses to identify the
+// notification. For example, to cancel the notification, you can pass its ID
+// number to NotificationManager.cancel().
+        mNotificationManager.notify(mNotificationId, mBuilder.build());
     }
 }
