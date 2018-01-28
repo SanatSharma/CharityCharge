@@ -26,17 +26,17 @@ public class CharityDetail extends AppCompatActivity {
 
         setContentView(R.layout.activity_charity_detail);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
-
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
-
         Bundle b = getIntent().getExtras();
         int id = b.getInt("id");
 
         Globals.Charity charity = Globals.getInstance().getCharity(id);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setTitle(charity.name);
 
         charityName = (TextView) findViewById(R.id.charity_name);
         charityWebsite = (TextView) findViewById(R.id.website);
