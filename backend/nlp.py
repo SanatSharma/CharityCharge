@@ -33,4 +33,4 @@ def get_keywords (string):
     headers = {'Ocp-Apim-Subscription-Key': accessKey}
     body = json.dumps (documents)
     response = requests.post(uri, data=body, headers=headers)
-    return response
+    return response.json()
