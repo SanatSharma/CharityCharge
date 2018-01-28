@@ -90,7 +90,7 @@ public class Globals{
 
     }
 
-    private class Charity{
+     class Charity{
         String name;
         String image;
         String website;

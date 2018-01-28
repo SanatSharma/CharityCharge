@@ -10,7 +10,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listviewItems"
+        android:id="@+id/list"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"

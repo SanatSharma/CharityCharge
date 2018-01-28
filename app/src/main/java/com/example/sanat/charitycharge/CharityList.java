@@ -3,6 +3,7 @@ package com.example.sanat.charitycharge;
 import android.app.ListActivity;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -25,22 +26,21 @@ import java.util.ArrayList;
 public class CharityList extends AppCompatActivity {
 
     // This is the Adapter being used to display the list's data
-    SimpleCursorAdapter mAdapter;
     ListView listView;
-
+    ArrayAdapter<String> itemAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        listView = (ListView) findViewById(R.id.listviewItems);
+        listView = (ListView) findViewById(R.id.list);
 
         ArrayList<String> items = Globals.getInstance().getNames();
-        
-        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, items);
 
-        Log.v("ArrayAdapter", itemsAdapter.getItem(1));
-        listView.setAdapter(itemsAdapter);
+        itemAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+
+        Log.v("ArrayAdapter", itemAdapter.getItem(1));
+        listView.setAdapter(itemAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -48,10 +48,21 @@ public class CharityList extends AppCompatActivity {
                                     int position, long id) {
 
                 // ListView Clicked item index
-                int itemPosition     = position;
+                int itemPosition = position;
 
                 // ListView Clicked item value
-                String  itemValue    = (String) listView.getItemAtPosition(position);
+                String  itemValue = (String) listView.getItemAtPosition(position);
+
+                //find id
+                int charityId = Globals.getInstance().getId(itemValue);
+
+                Intent i = new Intent(getApplicationContext(), CharityDetail.class);
+
+                Bundle b = new Bundle();
+                b.putInt("id", charityId);
+                i.putExtras(b);
+
+                startActivity(i);
 
                 // Show Alert
                 Toast.makeText(getApplicationContext(),
