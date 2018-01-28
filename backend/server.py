@@ -13,16 +13,21 @@ manager = Manager()
 
 display_name = "Shin_Cow"
 
+socket_client = None
+
 def new_client(client, server):
+    socket_client = client
     server.send_message_to_all("Hey all, a new client has joined us")
 
 def message(client, server, message):
     print("Message received: " + message)
+    server.send_message_to_all(message)
 
-server = WebsocketServer(3000)
-server.set_fn_new_client(new_client)
-server.set_fn_message_received(message)
-server.run_forever()
+def websocket():
+    server = WebsocketServer(3000)
+    server.set_fn_new_client(new_client)
+    server.set_fn_message_received(message)
+    server.run_forever()
 
 @app.route("/")
 def hello():
@@ -54,12 +59,16 @@ def update():
             #send request to sanat
             previous_string = response_json
             keywords = get_keywords(response_json)
-            print(keywords)
+            if (socket_client != None):
+                message(socket_client, server, keywords)
         else:
             time.sleep(5)
 
 if __name__ == "__main__":
     p = Process(target=update)
     p.start()
+    p2 = Process(target=websocket)
+    p2.start()
     app.run(debug=True, use_reloader=False)
     p.join()
+    p2.join()
