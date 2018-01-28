@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
@@ -82,7 +83,11 @@ public class WebSocketListener extends okhttp3.WebSocketListener{
         System.out.println("CONTEXTT: " + context);
 
         try {
+
             Intent resultIntent = new Intent(context, ResultActivity.class);
+            Bundle b = new Bundle();
+            b.putString("text", text);
+            resultIntent.putExtras(b);
 
             // The stack builder object will contain an artificial back stack for the
             // started Activity.

@@ -36,7 +36,6 @@ public class CharityDetail extends AppCompatActivity {
         Globals.Charity charity = Globals.getInstance().getCharity(id);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
 
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);

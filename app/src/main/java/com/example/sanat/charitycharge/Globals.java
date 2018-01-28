@@ -4,7 +4,9 @@ import android.os.Debug;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by sanat on 1/27/2018.
@@ -18,7 +20,7 @@ public class Globals{
     private ArrayList<String> charityNames;
     private HashMap<String, Integer> charityMapping;
     private HashMap<String, String> listViewImageMapping;
-
+    private HashMap<String, List<String>> tagMapping;
 
     // Restrict the constructor from being instantiated
     private Globals(){
@@ -26,6 +28,7 @@ public class Globals{
         charityMapping = new HashMap<String, Integer>();
         listViewImageMapping = new HashMap<String, String>();
         charities = createMap();
+        tagMapping = tagMap();
     }
 
     public HashMap getData(){
@@ -53,6 +56,24 @@ public class Globals{
         return instance;
     }
 
+    public List getRelevantCharities(String text){
+        if (tagMapping.containsKey(text.toLowerCase())){
+            return tagMapping.get(text.toLowerCase());
+        }
+        else{
+            return Arrays.asList("American Red Cross");
+        }
+    }
+
+    public HashMap<String, List<String>> tagMap(){
+        HashMap<String, List<String>> c = new HashMap<String, List<String>>();
+        c.put("hurricane", Arrays.asList("American Red Cross", "United Way Worldwide", "Feeding America"));
+        c.put("famine", Arrays.asList("Feeding America", "Task Force for Global Health", "American Red Cross"));
+        c.put("flooding", Arrays.asList("American Red Cross", "United Way Worldwide"));
+        c.put("freezing", Arrays.asList("Salvation Army", "Task Force for Global Health"));
+
+        return c;
+    }
     private HashMap<Integer, Charity> createMap() {
 
         Log.v("createmap","Inside here");
