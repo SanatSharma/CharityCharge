@@ -5,12 +5,15 @@ from websocket_server import WebsocketServer
 
 app = Flask(__name__)
 
+socket_client = None
 
 def new_client(client, server):
+    socket_client = client
 	server.send_message_to_all("Hey all, a new client has joined us")
 
 def message(client, server, message):
     print("Message received: " + message)
+    server.send_message_to_all(message)
 
 server = WebsocketServer(3000)
 server.set_fn_new_client(new_client)
