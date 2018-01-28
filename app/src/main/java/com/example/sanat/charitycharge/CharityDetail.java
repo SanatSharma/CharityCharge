@@ -33,7 +33,7 @@ public class CharityDetail extends AppCompatActivity {
         charityDescription = (TextView) findViewById(R.id.description);
         charityImage = (ImageView) findViewById(R.id.charity_image);
 
-        new ImageBackground(charityImage).execute(charity.image);
+        new ImageBackground(charityImage, true).execute(charity.image);
 
         charityName.setText(charity.name);
         charityWebsite.setText(charity.website);

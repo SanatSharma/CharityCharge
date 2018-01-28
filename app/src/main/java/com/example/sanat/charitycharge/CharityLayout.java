@@ -19,12 +19,14 @@ public class CharityLayout extends ArrayAdapter<String> {
 
     private final Context context;
     private final ArrayList<String> titles, descriptions;
+    private final ArrayList<String> icons;
 
-    public CharityLayout(Context context, ArrayList<String> titles, ArrayList<String> descriptions) {
+    public CharityLayout(Context context, ArrayList<String> titles, ArrayList<String> descriptions, ArrayList<String> icons) {
         super(context, -1, titles);
         this.context = context;
         this.titles = titles;
         this.descriptions = descriptions;
+        this.icons = icons;
     }
 
     @Override
@@ -36,8 +38,7 @@ public class CharityLayout extends ArrayAdapter<String> {
         TextView description = (TextView) rowView.findViewById(R.id.secondLine);
         title.setText(titles.get(position));
         description.setText(descriptions.get(position));
-        //TODO: we need a way to set the ImageView image.
-        //icon.setImageURI();
+        new ImageBackground(icon, true).execute(icons.get(position));
         return rowView;
     }
 

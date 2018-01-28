@@ -5,6 +5,7 @@ import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.Image;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.content.Loader;
@@ -34,19 +35,19 @@ public class CharityList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*LayoutInflater inflater = this.getLayoutInflater();
+        ArrayList<String> items = Globals.getInstance().getNames();
 
-        View myView = inflater.inflate(R.layout.activity_charity_list, null);*/
+        ArrayList<String> icons = new ArrayList<String>();
+
+        for (int index = 0; index < items.size(); index++) {
+            icons.add(Globals.getInstance().getCharityIcon(items.get(index)));
+        }
 
         setContentView(R.layout.activity_charity_list);
 
         listView = (ListView) findViewById(R.id.list);
 
-        ArrayList<String> items = Globals.getInstance().getNames();
-        
-        //ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
-
-        CharityLayout itemsAdapter = new CharityLayout(this, items, items);
+        CharityLayout itemsAdapter = new CharityLayout(this, items, items, icons);
 
         Log.v("Test", itemsAdapter.getItem(0));
 
