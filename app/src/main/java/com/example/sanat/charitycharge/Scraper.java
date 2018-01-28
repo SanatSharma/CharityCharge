@@ -28,7 +28,7 @@ import java.util.logging.*;
 import java.io.FileReader;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject   ;
+import com.google.gson.JsonObject;
 
 import java.io.*;
 
