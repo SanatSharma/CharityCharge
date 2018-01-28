@@ -17,6 +17,7 @@ public class Globals{
     private HashMap<Integer, Charity> charities;
     private ArrayList<String> charityNames;
     private HashMap<String, Integer> charityMapping;
+    private HashMap<String, String> listViewImageMapping;
 
 
     // Restrict the constructor from being instantiated
@@ -90,7 +91,7 @@ public class Globals{
 
     }
 
-    private class Charity{
+     class Charity{
         String name;
         String image;
         String website;
