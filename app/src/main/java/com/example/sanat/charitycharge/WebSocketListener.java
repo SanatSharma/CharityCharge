@@ -89,6 +89,7 @@ public class WebSocketListener extends okhttp3.WebSocketListener{
             // This ensures that navigating backward from the Activity leads out of
             // your app to the Home screen.
             TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+            System.out.println(context);
             // Adds the back stack for the Intent (but not the Intent itself)
             stackBuilder.addParentStack(ResultActivity.class);
             // Adds the Intent that starts the Activity to the top of the stack
