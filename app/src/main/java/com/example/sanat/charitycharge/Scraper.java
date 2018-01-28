@@ -1,4 +1,7 @@
-package com.mycompany.app;
+package com.example.sanat.charitycharge;
+
+import android.content.Context;
+import android.util.Log;
 
 import java.util.*;
 
@@ -13,31 +16,30 @@ import twitter4j.TwitterFactory;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
+
 import java.util.logging.*;
 import java.io.FileReader;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import java.net.*;
 import java.io.*;
 
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonBuilderFactory;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonValue;
 
-import java.net.HttpURLConnection;
-
-import org.apache.http.client.fluent.*;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpResponseException;
-import org.apache.http.entity.ContentType;
 
 public class Scraper {
 	// final static AccessToken accessToken = new AccessToken("3151868940-VNKeYFFoLoOgq9TtHgomR2jDMiRAjze1DTOgMgJ"
@@ -59,7 +61,7 @@ public class Scraper {
 		Configuration configuration = builder.build();
 		TwitterFactory factory = new TwitterFactory(configuration);
 		twitter = factory.getInstance();
-		
+
 		try {
 			//create a query to search twitter with the specific hashtag
 			Paging paging = new Paging(1, 100);
@@ -78,10 +80,30 @@ public class Scraper {
 
 	private static void sendMessageToServer(String message) {
 		try {
-			String response = Request.Post("http://127.0.0.1:5000/get_keywords")
-			.bodyString("{\"phrase\":\""+message+"\"}", ContentType.APPLICATION_JSON)
-			.execute().returnContent().asString();
-			System.out.println(response);
+			System.out.println(message);
+
+            CloseableHttpClient httpClient = HttpClients.createDefault();
+
+            HttpPost httppost = new HttpPost("http://127.0.0.1:5000/get_keywords");
+
+            // Request parameters and other properties.
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("phrase", message));
+            httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+
+            //Execute and get the response.
+            CloseableHttpResponse response = httpClient.execute(httppost);
+            HttpEntity entity = response.getEntity();
+
+            if (entity != null) {
+                InputStream instream = entity.getContent();
+                try {
+                    // do something useful
+                    System.out.println(instream);
+                } finally {
+                    instream.close();
+                }
+            }
 		}
 		catch(HttpResponseException hre) {
 			hre.printStackTrace();

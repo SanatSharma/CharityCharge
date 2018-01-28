@@ -16,6 +16,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
 }
 
 dependencies {
@@ -28,4 +38,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation files('libs/twitter4j-async-4.0.4.jar')
     implementation files('libs/twitter4j-core-4.0.4.jar')
+    compile 'com.google.code.gson:gson:2.8.2'
+    compile group: 'org.apache.httpcomponents', name: 'fluent-hc', version: '4.5.5'
 }
