@@ -40,10 +40,7 @@ public class CharityLayout extends ArrayAdapter<String> {
         TextView description = (TextView) rowView.findViewById(R.id.secondLine);
         title.setText(titles.get(position));
         description.setText(descriptions.get(position));
-        Glide
-                .with(context)
-                .load(icons.get(position))
-                .into((ImageView) icon);
+        Glide.with(context).load(icons.get(position)).into(icon);
         return rowView;
     }
 
