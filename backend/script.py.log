@@ -1,0 +1,16 @@
+Listening on port 3000 for clients..
+Connection
+Message received: server
+Connection
+Message received: Connected
+Initialized client
+Connection
+Message received: server
+Message received: boys
+hereeee
+Trying to send message
+Connection
+Message received: Connected
+hereeee
+Trying to send message
+Server terminated.

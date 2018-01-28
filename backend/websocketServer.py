@@ -26,7 +26,7 @@ def messageRec(client, server, message):
             print("NO CLIENT")
         else:
             print("Trying to send message");
-            server.send_message_to_all(message)
+            server.send_message(socket_client, message)
     
     
 

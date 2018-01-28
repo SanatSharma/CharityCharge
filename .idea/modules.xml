@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CharityCharge.iml" filepath="$PROJECT_DIR$/CharityCharge.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tamuhack.iml" filepath="$PROJECT_DIR$/tamuhack.iml" />
       <module fileurl="file://C:\Users\sanat\Documents\Github\CharityCharge\tamuhack.iml" filepath="C:\Users\sanat\Documents\Github\CharityCharge\tamuhack.iml" />
     </modules>
   </component>

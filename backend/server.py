@@ -52,7 +52,10 @@ def update():
         print(type(keywords))
         print(keywords)
         try:
-            word = keywords["documents"][0]["keyPhrases"][0]
+            word = keywords["documents"][0]
+            print(str(word))
+            word = word["keyPhrases"][0]
+	    print(str(word))
             if (ws != None):
                 print("Sending Data")
                 ws.send(word)
