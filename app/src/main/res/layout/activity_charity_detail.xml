@@ -4,34 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fed11c"
+    android:background="#f6f319"
     tools:context="com.example.sanat.charitycharge.CharityDetail">
 
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height = "300dp"
-        android:id="@+id/charityImage"/>
+        android:id="@+id/charity_image"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/charity_name"
-        android:layout_below="@id/charityImage"
+        android:layout_below="@id/charity_image"
         android:textSize="30dp"
+        android:layout_marginTop="20dp"
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/website"
         android:layout_below="@id/charity_name"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:layout_marginTop="5dp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/description"
         android:layout_below="@id/website"
         android:textSize="15dp"
+        android:layout_marginTop="15dp"
         />
 
     <Button
@@ -42,6 +45,7 @@
         android:text="Donate"
         android:textSize="20dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         />
 
 

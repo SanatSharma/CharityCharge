@@ -17,6 +17,7 @@ public class Globals{
     private HashMap<Integer, Charity> charities;
     private ArrayList<String> charityNames;
     private HashMap<String, Integer> charityMapping;
+    private HashMap<String, String> listViewImageMapping;
 
 
     // Restrict the constructor from being instantiated

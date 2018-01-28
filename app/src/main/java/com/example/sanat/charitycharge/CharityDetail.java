@@ -16,24 +16,24 @@ public class CharityDetail extends AppCompatActivity {
     TextView charityName;
     TextView charityDescription;
     TextView charityWebsite;
+    ImageView charityImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_charity_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         Bundle b = getIntent().getExtras();
         int id = b.getInt("id");
 
         Globals.Charity charity = Globals.getInstance().getCharity(id);
 
-        new ImageBackground((ImageView) findViewById(R.id.charityImage))
-                .execute(charity.image);
 
         charityName = (TextView) findViewById(R.id.charity_name);
         charityWebsite = (TextView) findViewById(R.id.website);
         charityDescription = (TextView) findViewById(R.id.description);
+        charityImage = (ImageView) findViewById(R.id.charity_image);
+
+        new ImageBackground(charityImage).execute(charity.image);
 
         charityName.setText(charity.name);
         charityWebsite.setText(charity.website);
