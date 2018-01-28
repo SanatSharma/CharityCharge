@@ -1,5 +1,8 @@
 package com.example.sanat.charitycharge;
 
+import android.os.Debug;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,13 +14,17 @@ public class Globals{
     private static Globals instance;
 
     // Global variable
-    private HashMap<Integer, Charity> charities = createMap();
-    private ArrayList<String> charityNames = new ArrayList<String>();
-    private HashMap<String, Integer> charityMapping = new HashMap<String, Integer>();
+    private HashMap<Integer, Charity> charities;
+    private ArrayList<String> charityNames;
+    private HashMap<String, Integer> charityMapping;
 
 
     // Restrict the constructor from being instantiated
-    private Globals(){}
+    private Globals(){
+        charityNames = new ArrayList<String>();
+        charityMapping = new HashMap<String, Integer>();
+        charities = createMap();
+    }
 
     public HashMap getData(){
         return this.charities;
@@ -43,6 +50,8 @@ public class Globals{
     }
 
     private HashMap<Integer, Charity> createMap() {
+
+        Log.v("createmap","Inside here");
          HashMap<Integer, Charity> c = new HashMap<Integer, Charity>();
          c.put(0, new Charity("United Way Worldwide", "https://www.unitedway.org/assets/img/logo.svg", "https://www.unitedway.org/",
                  "United Way improves lives by mobilizing the caring power of communities around the world to advance the common good."));
@@ -74,6 +83,8 @@ public class Globals{
 
          charityNames.add("American Red Cross");
          charityMapping.put("American Red Cross", 4);
+
+         Log.v("charityNames", charityNames.toString());
 
          return c;
 

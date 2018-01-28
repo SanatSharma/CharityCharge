@@ -18,21 +18,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
-import java.net.*;
-import java.io.*;
-
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonBuilderFactory;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonValue;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 
 public class Scraper {
 	/*	final static AccessToken accessToken = new AccessToken("789951371428495360-7aljagVXHXXVySZ94BQNHzG0ZVr2JDI"
@@ -58,7 +43,7 @@ public class Scraper {
 		//hashtag = null;
 		setList = new ArrayList<String>();
 	}
-	public static void main(String[] args)throws IOException{
+	public void setup(){
 
 		builder.setOAuthConsumerKey("BNvErshlqPIYQUDOPFmvQofPH");
 		builder.setOAuthConsumerSecret("3oBEm1MerGR0kJPDOYqhLnoaQlpYFX4pTbjybRo4uIJEjQ0ahJ");
@@ -88,19 +73,17 @@ public class Scraper {
 	static void fetchTwitter() throws JSONException{
 
 
-		try {
+/*		try {
 
 			//store the returned tweets in a list
 			List<Status> tweets = result.getTweets();
 
-			for(Status tweet: tweets){
-				
-				check = false;
+			for (Status tweet : tweets) {
+
 
 				String[] location = tweet.getUser().getLocation().split(", ");
-				for(String s : location)
-					if(s.equalsIgnoreCase(city) || s.equalsIgnoreCase(state)){
-						check = true;
+				for (String s : location)
+					if (s.equalsIgnoreCase(city) || s.equalsIgnoreCase(state)) {
 						break;
 					}
 				String[] text = tweet.getText().split(" ");
@@ -115,14 +98,13 @@ public class Scraper {
 
 				String[] tokens = tweet.getText().split(" ");
 
-				}
 			}
 		}
 		catch (TwitterException te) {
 			te.printStackTrace();
 			System.out.println("Failed to search tweets: " + te.getMessage());
 			System.exit(-1);
-		}
+		}*/
 
 	}
 }
