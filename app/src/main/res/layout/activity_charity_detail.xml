@@ -2,19 +2,30 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#f6f319"
+    android:theme="@style/AppTheme"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+
     tools:context="com.example.sanat.charitycharge.CharityDetail">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height = "300dp"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:layout_below="@id/my_toolbar"
+        android:adjustViewBounds="true"
         android:id="@+id/charity_image"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/charity_name"
         android:layout_below="@id/charity_image"
@@ -29,7 +40,7 @@
         android:textSize="20dp"
         android:layout_marginTop="5dp"/>
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/description"
         android:layout_below="@id/website"
@@ -48,9 +59,5 @@
         android:layout_marginTop="20dp"
         />
 
-
-
     <include layout="@layout/content_charity_detail" />
-
-
 </RelativeLayout>
