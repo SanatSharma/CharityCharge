@@ -22,7 +22,7 @@ public class WebSocketListener extends okhttp3.WebSocketListener{
     }
 
     public static void start(){
-        Request request = new Request.Builder().url("http://6c734971.ngrok.io").build();
+        Request request = new Request.Builder().url("http://34ce6dfd.ngrok.io:3000").build();
         WebSocketListener listener = WebSocketListener.getInstance();
         WebSocket ws = client.newWebSocket(request, listener);
     }
