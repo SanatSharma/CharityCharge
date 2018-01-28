@@ -44,7 +44,9 @@ public class CharityList extends AppCompatActivity {
 
         ArrayList<String> items = Globals.getInstance().getNames();
         
-        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+        //ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+
+        CharityLayout itemsAdapter = new CharityLayout(this, items, items);
 
         Log.v("Test", itemsAdapter.getItem(0));
 
