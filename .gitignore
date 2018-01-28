@@ -9,3 +9,4 @@ backend/keys.py
 /build
 /captures
 .externalNativeBuild
+/target/
